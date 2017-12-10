@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UNSW Talk</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+<script type="text/javascript">
+function showEditor(id) {
+   if  (document.getElementById(id).style.display=="none"){	
+   	document.getElementById(id).style.display = "block";
+   }else{
+   	document.getElementById(id).style.display = "none";
+   }
+}
+</script>
+<header class=" w3-container w3-card w3-yellow w3-padding-large">
+  <div class="w3-left">
+  <p  class=" w3-xlarge w3-opacity  w3-text-white  w3-allerta">UNSW Talk</p>
+  </div>
+  <div class="w3-right" >
+  <img src="https://www.unsw.edu.au/sites/default/files/UNSW_0.png" style="width:200px;height:80px;"  >
+  </div>
+</header>
+
+	<div class=" w3-container w3-bar w3-card  w3-black" > 
+	 <a href="{{ url_for('start') }}"><div class="w3-bar-item w3-hover-grey">home</div></a>
+	 <a href="{{ url_for('view_friends',zid=me.zid) }}"><div class="w3-bar-item w3-hover-grey">my friends</div></a>
+	 <a href="{{ url_for('search') }}"><div class="w3-bar-item w3-hover-grey">search</div></a>
+	 <a href="{{ url_for('setting') }}"><div class="w3-bar-item w3-hover-grey">setting</div></a>
+	 <a href="{{ url_for('logout') }}"><div class="w3-bar-item w3-right w3-hover-red">logout</div></a>
+	</div>
+
+
+
+
+	<div class=" w3-padding-large w3-cell-row">
+		<div class="w3-container w3-cell">
+			<div class="w3-container w3-cell-top">
+				{%if me.img_path %}
+				<img src="{{ url_for('sent_img',path_name=me.img_path) }}" class="w3-circle w3-left " style="width:100px;height:100px;">
+				{%else%}
+				<img src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" class="w3-circle w3-left " style="width:100px;height:100px;">
+				{%endif%}
+
+				<div class="w3-right w3-padding-large"><h1>{{user.full_name}}</h1></div> 
+			</div>
+			<br>
+			<div class="w3-container w3-cell-bottom">
+			<!-- display friends -->
+					<div class=" w3-card w3-black w3-padding-large ">Friends</div>
+					{%if friends %}
+					{% for f in friends %}
+					<div class="w3-container w3-padding-large">
+						<div class="w3-container w3-cell">
+								<a href="{{url_for('visit',zid=f.zid)}}"  style="text-decoration:none;">
+								{%if f.img_path %}
+								<img src="{{ url_for('sent_img',path_name=f.img_path) }}" class="w3-circle w3-left " style="width:50px;height:50px;">
+								{%else%}
+								<img src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" class="w3-circle w3-left " style="width:50px;height:50px;">
+								{%endif%}
+								</a>
+						</div>
+						<div class="w3-container w3-cell">
+						<!-- host user detaill -->
+							<a href="{{url_for('visit',zid=f.zid)}}"  style="text-decoration:none;"><p>{{f.full_name}}</p></a>
+						</div>
+					</div>	
+					<hr></hr>
+					{%endfor%}
+					{%else%}
+						<div class="w3-container w3-padding-large">
+							<h1>You need some friends</h1>
+						</div>
+					{%endif%}
+
+
+			</div>
+		</div>
+		<div class="w3-container w3-cell">
+		<!-- host user detaill -->
+
+			<div class="w3-container w3-cell-top">
+				<h1>Description</h1>
+				{%if description%}
+					<p>{{description|safe}}</p>
+				{%else%}
+					<p>please add some description via setting</p>
+				{%endif%}
+				<p>program: {{user.program}}</p>
+				<p>birthday: {{user.birthday}}</p>
+			</div>
+			
+			<!--editor for new post-->
+			<div class="w3-container w3-cell-bottom" >
+				<div id='post_new' class="w3-container">
+							<div  class="w3-padding-large w3-black">leave a messeage</div>
+									<form class="w3-container w3-card w3-padding-large" method="POST">
+										<input class="w3-input w3-border" type="text" placeholder="content" name="editor">
+										<input type="hidden" name="post_id" value="new_post">
+											<br>
+										<button type="submit" class=" w3-btn w3-card w3-right w3-yellow" >submit</button>
+									</form>
+									<br>
+							
+						</div>
+			</div>
+			<!-- end editor for new post-->
+			<!-- post display -->
+			<div class="w3-container w3-cell-bottom" style="width:700px">
+				<div class=" w3-card w3-black w3-padding " style="width:700px">Post</div>
+					{%if post_list%}
+						{%for user_post in post_list %}	
+
+
+					<div class="w3-container w3-card w3-padding-large">
+						<form method="POST">
+							<input type="hidden" name="delete" value="1">
+							<input type="hidden" name="post_id" value="{{user_post.post_id}}">
+
+							<button type="submit" class=" w3-btn w3-right  w3-border w3-border-red w3-round-large w3-hover-red">delete</button>
+						</form>
+						<p><b>{{user_post.time}}</b></p>
+						{%if user_post.lines%}
+						{%for item in user_post.lines%}
+							<p>{{item|safe}}</p>
+						{%endfor%}
+						{%endif%}
+
+						<button class=" w3-btn w3-card w3-right w3-yellow" onclick="showEditor('editor{{user_post.post_id}}')">comments</button>
+						
+						<!--editor zone-->
+						<div id='editor{{user_post.post_id}}' class="w3-container" style="display:none;">
+							<div  class="w3-padding-large w3-black">leave a messeage</div>
+									<form class="w3-container w3-card w3-padding-large" method="POST">
+										<input class="w3-input w3-border" type="text" placeholder="content" name="editor">
+										<input type="hidden" name="post_id" value="{{user_post.post_id}}">
+											<br>
+										<button type="submit" class=" w3-btn w3-card w3-right w3-yellow" >submit</button>
+									</form>
+									<br>
+							
+						</div>
+						<!--end editor-->
+						<br>
+						<br>
+						<br>
+						<br>
+						<!-- comments zone-->
+							{%if user_post.comment %}
+							{%for user_comment in user_post.comment %}
+							<div class="w3-container w3-card w3-padding-large">
+								{%if me.zid == user_comment.from_user%}
+									<form method="POST">
+										<input type="hidden" name="delete" value="1">
+										<input type="hidden" name="post_id" value="{{user_comment.post_id}}">
+
+										<button type="submit" class=" w3-btn w3-right  w3-border w3-border-red w3-round-large w3-hover-red">delete</button>
+									</form>
+								{%endif%}
+								<div class="w3-container w3-cell">
+									<img src="https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png" class="w3-circle w3-left " style="width:80px;height:80px;">
+									<br>
+									<span class="w3-left">
+										<h4>{{user_comment.from_user}}</h4>
+									</span> 
+								</div>
+								<div class="w3-container w3-cell">
+									
+
+									{%if user_comment.lines %}
+									{%for comment_line in user_comment.lines%}
+									<p>{{comment_line|safe}}</p>
+									{%endfor%}
+									{%endif%}
+									<button class=" w3-btn w3-card w3-right w3-yellow" onclick="showEditor('editor{{user_comment.post_id}}')">comments</button>
+									
+
+																		<!--editor zone-->
+									<div id='editor{{user_comment.post_id}}' class="w3-container" style="display:none;">
+										<div  class="w3-padding-large w3-black">leave a messeage</div>
+												<form class="w3-container w3-card w3-padding-large" method="POST">
+													<input class="w3-input w3-border" type="text" placeholder="content" name="editor">
+													<input type="hidden" name="post_id" value="{{user_comment.post_id}}">
+														<br>
+													<button type="submit" class=" w3-btn w3-card w3-right w3-yellow" >submit</button>
+												</form>
+												<br>
+										
+									</div>
+									<!--end editor-->
+
+								</div>
+								
+								<br>
+								<!--reply zone-->
+									{%if user_comment.comment %}
+									{%for reply in user_comment.comment %}
+									<div class="w3-container w3-card w3-padding-large">
+										{% if me.zid == reply.from_user%}
+											<form method="POST">
+												<input type="hidden" name="delete" value="1">
+												<input type="hidden" name="post_id" value="{{reply.post_id}}">
+
+												<button type="submit" class=" w3-btn w3-right  w3-border w3-border-red w3-round-large w3-hover-red">delete</button>
+											</form>
+										{%endif%}
+										<div class="w3-container w3-cell">
+											<img src="https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png" class="w3-circle w3-left " style="width:80px;height:80px;">
+											<br>
+											<span class="w3-left">
+												<h4>{{reply.from_user}}</h4>
+											</span> 
+										</div>
+										<div class="w3-container w3-cell">
+											{%if reply.lines %}
+											{%for reply_line in reply.lines%}
+											<p>{{reply_line|safe}}</p>
+											{%endfor%}
+											{%endif%}
+										</div>
+										<br>
+									</div>
+
+									{%endfor%}
+									{%endif%}
+								<!--end reply-->
+							</div>
+							<br>
+							{%endfor%}
+							{%endif%}
+
+						<!-- end comments-->
+						</div>
+						<br>
+						{%endfor%}
+					{%endif%}
+			</div>
+			<!-- end post display -->
+		</div>
+
+	</div>
+	<div class="w3-container">
+	
+
+
+	<!-- interaction goes here -->
+
+
+		{%block comments%}
+		{%endblock%}
+
+
+		<br>
+		{%block leave_message%}
+		{%endblock%}
+
+
+
+		
+
+	<!--interaction ends here-->
+	</div>	
+
+<footer class="w3-container w3-card w3-black ">
+  <h5>About us</h5>
+</footer>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,59 @@
+{%extends "unsw_base.html"%} {%block display_friends%}
+
+
+	<div class=" w3-card w3-black w3-padding-large ">People you might know</div>
+	{%if f_suggeted %}
+	{% for f in f_suggeted %}
+	<div class="w3-container w3-padding-large">
+		<div class="w3-container w3-cell">
+				<a href="{{ url_for('visit',zid=f.zid) }}"  style="text-decoration:none;">
+				{%if f.img_path %}
+					<img src="{{ url_for('sent_img',path_name=f.img_path) }}" class="w3-circle w3-left " style="width:100px;height:100px;"">
+				{%else%}
+					<img src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" class="w3-circle w3-left " style="width:100px;height:100px;">
+				{%endif%}
+				</a>
+		</div>
+		<div class="w3-container w3-cell">
+		<!-- host user detaill -->
+			<a href="{{ url_for('visit',zid=f.zid) }}"  style="text-decoration:none;"><h1>{{f.full_name}}</h1></a>
+			<p>program: {{f.program}}</p>
+		</div>
+	</div>	
+	<hr></hr>
+	{%endfor%}
+	{%else%}
+		<div class="w3-container w3-padding-large">
+			<h1>you know every one</h1>
+		</div>
+	{%endif%}
+	<br>
+
+
+<div class=" w3-card w3-black w3-padding-large ">Friends</div>
+	{%if friends %}
+	{% for f in friends %}
+	<div class="w3-container w3-padding-large">
+		<div class="w3-container w3-cell">
+				<a href="{{ url_for('visit',zid=f.zid) }}"  style="text-decoration:none;">
+				{%if f.img_path %}
+					<img src="{{ url_for('sent_img',path_name=f.img_path) }}" class="w3-circle w3-left " style="width:100px;height:100px;"">
+				{%else%}
+					<img src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" class="w3-circle w3-left " style="width:100px;height:100px;">
+				{%endif%}
+				</a>
+		</div>
+		<div class="w3-container w3-cell">
+		<!-- host user detaill -->
+			<a href="{{ url_for('visit',zid=f.zid) }}"  style="text-decoration:none;"><h1>{{f.full_name}}</h1></a>
+			<p>program: {{f.program}}</p>
+		</div>
+	</div>	
+	<hr></hr>
+	{%endfor%}
+	{%else%}
+		<div class="w3-container w3-padding-large">
+			<h1>You need some friends</h1>
+		</div>
+	{%endif%}
+{%endblock%}

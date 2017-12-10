@@ -1,0 +1,31 @@
+11/10/17	20:30	22:30	create html template
+13/10/17	18:50	19:50	create a class for user	
+13/10/17	10:00	11:36	display a user on the home page
+14/10/17	9:00	9:33	display all the friends of a user
+14/10/17	11:30	12:46	handle details have entered by users
+14/10/17	18:30	19:06	add search bar
+14/10/17	20:00	20:48	add link for user
+14/10/17	21:00	22:21	move the location to display friends
+15/10/17	11:00	12:30	1.iterate posts files 2.design the dict for file
+15/10/17	17:00	18:19	user now be able to see their post in home page
+15/10/17	20:30	22:00 	using zid as hyper reference
+16/10/17	10:30	11:06	display tag by full name
+16/10/17 	15:00	15:45	display comment box when click
+17/10/17	11:00	12:35 	user can make new comments and reply
+19/10/17	12:30 	13:00 	user can make new post
+19/10/17	14:30	15:18	build up a dictionary for the keywords
+20/10/17	12:00	13:30	search a post successfully!
+22/10/17	18:00	18:33	comment and reply at other people's pages
+22/10/17	19:00	19:20	show the friends status at vis_home.html	
+22/10/17	20:30	21:22	add as friend and unfriend a friend
+24/10/17	11:30	12:12	add friends suggestion
+26/10/17 	10:30	11:55	user now can delete their post, comment and reply
+27/10/17	12:00	13:00	upload new image and delete img for the user
+27/10/17	13:00	14:00	check the formatting
+27/10/17	16:30	17:00	check implement logout page
+27/10/17	17:00	17:30	show the descriptions
+28/10/17 	10:30	13:00	cgi debug
+28/10/17	15:00	16:49	suspend and delete user, change user detail
+28/10/17	17:00	18:00	allow create new user
+28/10/17	19:30	20:40	improve the friend suggestion algorithm
+29/1-/17	10:00	12:00 	find out how to send email

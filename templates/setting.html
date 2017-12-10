@@ -1,0 +1,82 @@
+{%extends "unsw_base.html"%}{%block user_setting%}
+
+<div class="w3-container w3-padding-large ">
+
+			<div class="w3-container w3-cell ">
+				{%if me.img_path %}
+				<img src="{{ url_for('sent_img',path_name=me.img_path) }}" class="w3-circle w3-left " style="width:100px;height:100px;">
+				{%else%}
+				<img src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" class="w3-circle w3-left " style="width:100px;height:100px;">
+				{%endif%}
+				<div class="w3-left w3-padding-large"><h1>{{me.full_name}}</h1></div> 
+				<br>
+				<div class="w3-padding-large w3-cell-middle">
+					<form method="POST"  enctype="multipart/form-data">
+						<div>
+							<button type="submit" name="submit" value="delete img" class=" w3-btn w3-card w3-yellow w3-hover-red" >Delete</button>
+						</div>
+						<br>
+						<div>
+							<input  type="file" accept="image/*" name="new_img" class=" w3-btn w3-card" />
+							<br>
+							<br>
+							<button type="submit" name="submit" value="new img" class=" w3-btn w3-card w3-yellow w3-hover-green" >Upload</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+			
+			<div class="w3-container w3-cell">
+				
+				<form method="POST">
+					<h1>Description</h1>
+						<input name="description" value="{{description}}" />
+					
+					<h1>Email address</h1>
+					<input name="email" value="{{me.email}}">
+
+					<h1>Password</h1>
+					<input name="password" value="{{me.password}}">
+
+					<h1>Full name</h1>
+					<input name="full_name" value="{{me.full_name}}">
+
+					<h1>Home Address</h1>
+						<label>Name of suburb</label>
+						<input name="home_suburb" value="{{me.home_suburb}}">
+						<br>
+						<label>longitude</label>
+						<input name="home_longitude" value="{{me.home_longitude}}"/>
+						<br>
+						<label>latitude</label>
+						<input name="home_latitude" value="{{me.home_latitude}}"/>
+						<br>
+					<h1>Program</h1>
+						<input name="program" value="{{me.program}}"/>
+					<h1>Birthday</h1>
+						<input name="birthday" value="{{me.birthday}}"/>
+
+					<h1>Course enrolled in</h1>
+						{%if me.course_enroled%}
+						{%for course_name in me.course_enroled%}
+						<p>{{course_name}}</p>
+						{%endfor%}
+						{%endif%}
+
+					<button type="submit" name="submit" value="update" class=" w3-btn w3-card w3-right w3-yellow" >submit</button>
+				</form>
+			</div>	
+
+			<form method="POST">
+				<button type="submit" name="submit" value="delete account" class=" w3-btn w3-card w3-yellow w3-hover-red" >Delete Account
+				</button>
+				<button type="submit" name="submit" value="suspend account" class=" w3-btn w3-card w3-yellow w3-hover-red" >Suspend Account
+				</button>
+			</form>
+</div>
+
+
+
+
+{%endblock%}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UNSW Talk</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<script type="text/javascript">
+function showEditor(id) {
+   if  (document.getElementById(id).style.display=="none"){	
+   	document.getElementById(id).style.display = "block";
+   }else{
+   	document.getElementById(id).style.display = "none";
+   }
+}
+</script>
+<header class=" w3-container w3-card w3-yellow w3-padding-large">
+  <div class="w3-left">
+  <p  class=" w3-xlarge w3-opacity  w3-text-white  w3-allerta">UNSW Talk</p>
+  </div>
+  <div class="w3-right" >
+  <img src="https://www.unsw.edu.au/sites/default/files/UNSW_0.png" style="width:200px;height:80px;"  >
+  </div>
+</header>
+
+	<div class=" w3-container w3-bar w3-card  w3-black" > 
+	 <a href="{{ url_for('start') }}"><div class="w3-bar-item w3-hover-grey">home</div></a>
+	 <a href="{{ url_for('view_friends',zid=me.zid) }}"><div class="w3-bar-item w3-hover-grey">my friends</div></a>
+	 <a href="{{ url_for('search') }}"><div class="w3-bar-item w3-hover-grey">search</div></a>
+	 <a href="{{ url_for('setting') }}"><div class="w3-bar-item w3-hover-grey">setting</div></a>
+	  <a href="{{ url_for('logout') }}"><div class="w3-bar-item w3-right w3-hover-red">logout</div></a>
+	</div>
+
+	{%block suspend_infor%}
+	{%endblock%}
+
+
+	{%block user_zone%}
+	{%endblock%}
+
+	{%block user_setting%}
+	{%endblock%}
+
+	<br>
+	<div class="w3-container">
+	{%block search%}
+	{%endblock%}
+
+	{%block display_friends_suggested%}
+	{%endblock%}
+	<br>
+	{%block display_friends%}
+	{%endblock%}
+	</div>
+<footer class="w3-container w3-card w3-black ">
+  <h5>About us</h5>
+</footer>
+
+</body>
+</html>

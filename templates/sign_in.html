@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign in</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+
+
+<div class="w3-display-container w3-white" style="height:500px;height:800px;">
+	<img src="https://www.business.unsw.edu.au/SiteCollectionImages/content/asb-unsw-campus-53.jpg" class="w3-opacity" style="width:1600px;height:800px;" >
+
+	<!--login card-->
+	<div class="w3-display-middle w3-card">
+		<div class="w3-pannel w3-container w3-yellow w3-padding-large" style="width:500px;">
+
+				<header class="w3-left w3-xxlarge w3-opacity w3-myfont">UNSW Talk</header>
+			
+				<img src="https://www.unsw.edu.au/sites/default/files/UNSW_0.png" style="width:140px;height:60px;" class="w3-right">
+				
+		</div>
+
+		<div class=" w3-bar  w3-black w3-container" style="width:500px;height:20px;">
+		{%if status%}
+		{{status}}
+		{%endif%}
+		</div>
+		
+		<!--login form goes here-->
+		<form class="w3-container w3-white w3-padding-large" method="POST">
+			<input class="w3-input w3-border" type="text" placeholder="zid" name="zid">
+				<br>
+			<input class="w3-input w3-border" type="text" placeholder="email" name="email">
+				<br>
+			<input class="w3-input w3-border" type="text" placeholder="Password" name="password">
+				<br>
+
+			<button type="submit" class=" w3-btn w3-card w3-right w3-yellow" >Sign in</button>
+		</form>
+		<!--end login form-->
+	</div>
+	<!--login card end -->
+
+</div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+{%extends "unsw_base.html"%}
+{%block search%}
+<div class="w3-padding-large w3-black">Search</div>
+		<form class="w3-container w3-card w3-padding-large" method="POST">
+			<input class="w3-input w3-border" type="text" name="search" placeholder="user">
+				<br>
+			<button type="submit" class=" w3-btn w3-card w3-right w3-yellow" >search</button>
+		</form>
+		<br>
+</div>
+
+
+<div class="w3-container">
+	<!-- display post -->
+	<div class=" w3-card w3-black w3-padding-large ">Post Matched</div>
+	{%if post_result %}
+	{% for f in post_result %}
+		<div class="w3-container w3-card w3-padding-large">
+			<div class="w3-container w3-cell">
+				<img src="https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png" class="w3-circle w3-left " style="width:80px;height:80px;">
+				<br>
+				<span class="w3-left">
+					<h4>{{f.from_user}}</h4>
+				</span> 
+			</div>
+			<div class="w3-container w3-cell">
+				{%if f.lines %}
+				{%for comment_line in f.lines%}
+				<p>{{comment_line|safe}}</p>
+				{%endfor%}
+				{%endif%}
+			</div>
+		</div>
+	{%endfor%}
+	{%endif%}
+
+
+	<!-- display friends -->
+	<div class=" w3-card w3-black w3-padding-large ">User Matched</div>
+	{%if result %}
+	{% for f in result %}
+	<div class="w3-container w3-padding-large">
+		<div class="w3-container w3-cell">
+				<a href="{{ url_for('visit',zid=f.zid) }}"  style="text-decoration:none;">
+				{%if f.img_path %}
+					<img src="{{ url_for('sent_img',path_name=f.img_path) }}" class="w3-circle w3-left " style="width:100px;height:100px;"">
+				{%else%}
+					<img src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" class="w3-circle w3-left " style="width:100px;height:100px;">
+				{%endif%}
+				</a>
+		</div>
+		<div class="w3-container w3-cell">
+		<!-- host user detaill -->
+			<a href="{{ url_for('visit',zid=f.zid) }}"  style="text-decoration:none;"><h1>{{f.full_name}}</h1></a>
+			<p>program: {{f.program}}</p>
+		</div>
+	</div>	
+	<hr></hr>
+	{%endfor%}
+	<!-- end display friends -->
+	{%else%}
+		<div class="w3-container w3-padding-large">
+			<h1>No result found</h1>
+		</div>
+	{%endif%}
+</div>
+{%endblock%}

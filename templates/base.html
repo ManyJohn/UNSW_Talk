@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>unswtalk</title>
+<link href="{{url_for('static', filename='UNSWtalk.css')}}") rel="stylesheet">
+</head>
+<body>
+<script type="text/javascript">
+function showEditor(id) {
+   if  (document.getElementById(id).style.display=="none"){	
+   	document.getElementById(id).style.display = "block";
+   }else{
+   	document.getElementById(id).style.display = "none";
+   }
+}
+</script>
+<div class="unswtalk_heading">
+UNSWtalk
+</div>
+
+{% block body_contents %}
+{% endblock %}
+
+</body>
+</html>
